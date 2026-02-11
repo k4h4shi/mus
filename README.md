@@ -1,5 +1,8 @@
 # mus
 
+This project is currently in planning/specification stage.
+Implementation has not started yet, and development is planned next.
+
 `mus` is a loop-based programming language for making music.
 It is designed for programmers who build tracks from clips and perform section changes live, similar to a clip/track/scene workflow.
 
