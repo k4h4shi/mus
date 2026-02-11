@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Build outputs
+dist/
+out/
+coverage/
+
+# MIDI render outputs
+*.mid
+*.midi
+
+# Node / JS artifacts (optional future tooling)
+node_modules/
+
+# Env
+.env
+.env.*

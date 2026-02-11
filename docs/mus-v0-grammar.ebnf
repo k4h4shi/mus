@@ -1,0 +1,52 @@
+(* mus v0 EBNF *)
+
+source            = session_decl ;
+
+session_decl      = "session" , identifier , "{" , { session_item } , "}" ;
+session_item      = bpm_decl
+                  | time_sig_decl
+                  | swing_decl
+                  | track_decl
+                  | scene_decl
+                  | launch_decl ;
+
+bpm_decl          = "bpm" , integer ;
+time_sig_decl     = "time_signature" , integer , "/" , integer ;
+swing_decl        = "swing" , number ;
+
+track_decl        = "track" , identifier , [ "channel" , integer ] , "{" , { clip_decl } , "}" ;
+clip_decl         = "clip" , identifier , "length" , bars , "{" , notes_block , "}" ;
+
+bars              = integer , "bar" , [ "s" ] ;
+
+notes_block       = "notes" , "{" , { note_event } , "}" ;
+note_event        = "at" , beat , pitch , duration , [ velocity ] , [ gate ] , [ probability ] , ";" ;
+
+velocity          = "vel" , integer ;
+gate              = "gate" , number ;
+probability       = "prob" , number ;
+
+scene_decl        = "scene" , identifier , "{" , { scene_binding } , "}" ;
+scene_binding     = identifier , ":" , identifier , ";" ;
+launch_decl       = "launch" , identifier , ";" ;
+
+beat              = number ;
+duration          = rational | number ;
+rational          = integer , "/" , integer ;
+
+pitch             = note_name , octave ;
+note_name         = "A" | "A#" | "Bb"
+                  | "B"
+                  | "C" | "C#" | "Db"
+                  | "D" | "D#" | "Eb"
+                  | "E"
+                  | "F" | "F#" | "Gb"
+                  | "G" | "G#" | "Ab" ;
+
+identifier        = letter , { letter | digit | "_" | "-" } ;
+octave            = [ "-" ] , digit , { digit } ;
+integer           = digit , { digit } ;
+number            = integer , [ "." , { digit } ] ;
+
+letter            = "A".."Z" | "a".."z" ;
+digit             = "0".."9" ;
